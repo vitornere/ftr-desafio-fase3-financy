@@ -1,13 +1,14 @@
-import "dotenv/config";
-import "reflect-metadata";
+import 'dotenv/config';
+import 'reflect-metadata';
 
-import Fastify from "fastify";
-import cors from "@fastify/cors";
-
-import { ApolloServer } from "@apollo/server";
-import fastifyApollo, { fastifyApolloDrainPlugin } from "@as-integrations/fastify";
-import { buildSchema } from "type-graphql";
-import { HelloResolver } from "./resolvers/hello-resolver.js";
+import { ApolloServer } from '@apollo/server';
+import fastifyApollo, {
+  fastifyApolloDrainPlugin,
+} from '@as-integrations/fastify';
+import cors from '@fastify/cors';
+import Fastify from 'fastify';
+import { buildSchema } from 'type-graphql';
+import { HelloResolver } from './resolvers/hello-resolver.js';
 
 async function main() {
   const app = Fastify({ logger: true });
@@ -19,7 +20,7 @@ async function main() {
   const schema = await buildSchema({
     resolvers: [HelloResolver],
     validate: false,
-    emitSchemaFile: "./schema.graphql",
+    emitSchemaFile: './schema.graphql',
   });
 
   const server = new ApolloServer({
@@ -34,8 +35,8 @@ async function main() {
     // context: buildContext,
   });
 
-  await app.listen({ port: 4000, host: "0.0.0.0" });
-  console.log("Server is running on port 4000");
+  await app.listen({ port: 4000, host: '0.0.0.0' });
+  console.log('Server is running on port 4000');
 }
 
 main().catch((err) => {

@@ -1,6 +1,7 @@
 onlyBuiltDependencies:
   - '@apollo/protobufjs'
   - '@prisma/engines'
+  - '@swc/core'
   - better-sqlite3
   - esbuild
   - prisma
