@@ -72,6 +72,7 @@ type Mutation {
   deleteCategory(input: DeleteByIdInput!): Boolean!
   deleteTransaction(input: DeleteByIdInput!): Boolean!
   login(input: LoginInput!): AuthOutput!
+  refreshToken(input: RefreshTokenInput!): RefreshOutput!
   register(input: RegisterInput!): AuthOutput!
   updateCategory(input: UpdateCategoryInput!): CategoryModel!
   updateTransaction(input: UpdateTransactionInput!): TransactionModel!
@@ -86,6 +87,15 @@ type Query {
   categories: CategoryListOutput!
   dashboardSummary(month: Int!, year: Int!): DashboardSummaryOutput!
   transactions(filters: TransactionFiltersInput, pagination: PaginationInput): TransactionListOutput!
+}
+
+type RefreshOutput {
+  refreshToken: String!
+  token: String!
+}
+
+input RefreshTokenInput {
+  refreshToken: String!
 }
 
 input RegisterInput {

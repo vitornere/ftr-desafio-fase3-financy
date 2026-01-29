@@ -20,3 +20,13 @@ export class LoginInput {
   @Field(() => String)
   password!: string;
 }
+
+/**
+ * Input for refreshing tokens.
+ * The refresh token is passed in the body (not via Authorization header).
+ */
+@InputType()
+export class RefreshTokenInput {
+  @Field(() => String)
+  refreshToken!: string;
+}

@@ -12,3 +12,16 @@ export class AuthOutput {
   @Field(() => UserModel)
   user!: UserModel;
 }
+
+/**
+ * Output for token refresh.
+ * Returns new access token and rotated refresh token.
+ */
+@ObjectType()
+export class RefreshOutput {
+  @Field(() => String)
+  token!: string;
+
+  @Field(() => String)
+  refreshToken!: string;
+}

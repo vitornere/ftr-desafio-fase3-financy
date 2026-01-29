@@ -1,6 +1,13 @@
 import { Arg, Mutation, Resolver } from 'type-graphql';
-import { LoginInput, RegisterInput } from '@/graphql/dtos/inputs/auth.input.js';
-import { AuthOutput } from '@/graphql/dtos/outputs/auth.output.js';
+import {
+  LoginInput,
+  RefreshTokenInput,
+  RegisterInput,
+} from '@/graphql/dtos/inputs/auth.input.js';
+import {
+  AuthOutput,
+  RefreshOutput,
+} from '@/graphql/dtos/outputs/auth.output.js';
 import { AuthService } from '@/services/auth.service.js';
 
 @Resolver()
@@ -21,5 +28,17 @@ export class AuthResolver {
     @Arg('input', () => LoginInput) input: LoginInput,
   ): Promise<AuthOutput> {
     return this.authService.login(input);
+  }
+
+  /**
+   * Refresh tokens using a valid refresh token.
+   * Does NOT require Authorization header - uses the refresh token from input.
+   * Returns new access token and rotated refresh token.
+   */
+  @Mutation(() => RefreshOutput)
+  async refreshToken(
+    @Arg('input', () => RefreshTokenInput) input: RefreshTokenInput,
+  ): Promise<RefreshOutput> {
+    return this.authService.refresh(input);
   }
 }
