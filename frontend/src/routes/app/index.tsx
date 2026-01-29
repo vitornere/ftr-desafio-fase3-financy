@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { SummaryCards } from "@/features/dashboard/components";
+
 interface AppSearchParams {
     month?: number;
     year?: number;
@@ -33,5 +35,11 @@ export const Route = createFileRoute("/app/")({
 });
 
 function AppHome() {
-    return <div>Dashboard</div>;
+    const { month, year } = Route.useSearch();
+
+    return (
+        <div className="space-y-8 pt-6">
+            <SummaryCards month={month!} year={year!} />
+        </div>
+    );
 }
