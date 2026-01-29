@@ -36,9 +36,11 @@ cd backend
 pnpm install
 ```
 
-### 3) Rodar migrations / setup (se aplicável)
+### 3) Rodar migrations / setup
 
-> Use o comando padrão do projeto (ex.: `pnpm db:migrate`, `pnpm prisma migrate`, etc).
+```bash
+pnpm prisma:migrate:dev
+```
 
 ### 4) Subir o servidor
 
@@ -97,7 +99,7 @@ pnpm build
 
 ---
 
-## Dev features (opcional)
+## Dev features
 
 Seed de dados fake:
 
