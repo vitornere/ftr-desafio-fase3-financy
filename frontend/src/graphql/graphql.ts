@@ -302,7 +302,7 @@ export type TransactionsQueryVariables = Exact<{
 }>;
 
 
-export type TransactionsQuery = { __typename?: 'Query', transactions: { __typename?: 'TransactionListOutput', total: number, page: number, perPage: number, items: Array<{ __typename?: 'TransactionModel', id: string, type: TransactionType, description: string, amountCents: number, date: any, categoryId?: string | null, userId: string, createdAt: any, updatedAt: any }> } };
+export type TransactionsQuery = { __typename?: 'Query', transactions: { __typename?: 'TransactionListOutput', total: number, page: number, perPage: number, items: Array<{ __typename?: 'TransactionModel', id: string, type: TransactionType, description: string, amountCents: number, date: any, categoryId?: string | null, userId: string, createdAt: any, updatedAt: any, category?: { __typename?: 'CategoryModel', id: string, title: string, color: string, icon: string } | null }> } };
 
 export type CreateTransactionMutationVariables = Exact<{
   input: CreateTransactionInput;
@@ -444,6 +444,12 @@ export const TransactionsDocument = new TypedDocumentString(`
       amountCents
       date
       categoryId
+      category {
+        id
+        title
+        color
+        icon
+      }
       userId
       createdAt
       updatedAt

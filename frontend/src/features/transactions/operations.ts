@@ -13,6 +13,12 @@ export const TransactionsQuery = graphql(`
         amountCents
         date
         categoryId
+        category {
+          id
+          title
+          color
+          icon
+        }
         userId
         createdAt
         updatedAt
