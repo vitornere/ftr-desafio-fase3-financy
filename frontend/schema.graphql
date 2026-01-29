@@ -72,6 +72,10 @@ type Mutation {
   login(input: LoginInput!): AuthOutput!
   refreshToken(input: RefreshTokenInput!): RefreshOutput!
   register(input: RegisterInput!): AuthOutput!
+  """
+  DEV ONLY: Seed fake categories and transactions for the authenticated user.
+  """
+  seedDevData(input: SeedDevDataInput!): SeedDevDataOutput!
   updateCategory(input: UpdateCategoryInput!): CategoryModel!
   updateTransaction(input: UpdateTransactionInput!): TransactionModel!
 }
@@ -84,6 +88,8 @@ input PaginationInput {
 type Query {
   categories: CategoryListOutput!
   dashboardSummary(month: Int!, year: Int!): DashboardSummaryOutput!
+  """Check if the dev seed feature is enabled."""
+  isDevSeedEnabled: Boolean!
   transactions(filters: TransactionFiltersInput, pagination: PaginationInput): TransactionListOutput!
   userMe: UserModel
 }
@@ -101,6 +107,26 @@ input RegisterInput {
   email: String!
   name: String!
   password: String!
+}
+
+input SeedDevDataInput {
+  """Number of categories to create (max 10)."""
+  categoriesCount: Int! = 10
+  """If true, deletes existing categories and transactions before seeding."""
+  clearExisting: Boolean! = false
+  """Month (1-12) for transactions. Defaults to current month."""
+  month: Int
+  """Number of transactions to create (max 200)."""
+  transactionsCount: Int! = 80
+  """Year for transactions. Defaults to current year."""
+  year: Int
+}
+
+type SeedDevDataOutput {
+  """Number of categories created."""
+  categoriesCreated: Int!
+  """Number of transactions created."""
+  transactionsCreated: Int!
 }
 
 input TransactionFiltersInput {

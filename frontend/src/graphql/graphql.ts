@@ -87,6 +87,8 @@ export type Mutation = {
   login: AuthOutput;
   refreshToken: RefreshOutput;
   register: AuthOutput;
+  /** DEV ONLY: Seed fake categories and transactions for the authenticated user. */
+  seedDevData: SeedDevDataOutput;
   updateCategory: CategoryModel;
   updateTransaction: TransactionModel;
 };
@@ -127,6 +129,11 @@ export type MutationRegisterArgs = {
 };
 
 
+export type MutationSeedDevDataArgs = {
+  input: SeedDevDataInput;
+};
+
+
 export type MutationUpdateCategoryArgs = {
   input: UpdateCategoryInput;
 };
@@ -145,6 +152,8 @@ export type Query = {
   __typename?: 'Query';
   categories: CategoryListOutput;
   dashboardSummary: DashboardSummaryOutput;
+  /** Check if the dev seed feature is enabled. */
+  isDevSeedEnabled: Scalars['Boolean']['output'];
   transactions: TransactionListOutput;
   userMe?: Maybe<UserModel>;
 };
@@ -175,6 +184,27 @@ export type RegisterInput = {
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
+};
+
+export type SeedDevDataInput = {
+  /** Number of categories to create (max 10). */
+  categoriesCount?: Scalars['Int']['input'];
+  /** If true, deletes existing categories and transactions before seeding. */
+  clearExisting?: Scalars['Boolean']['input'];
+  /** Month (1-12) for transactions. Defaults to current month. */
+  month?: InputMaybe<Scalars['Int']['input']>;
+  /** Number of transactions to create (max 200). */
+  transactionsCount?: Scalars['Int']['input'];
+  /** Year for transactions. Defaults to current year. */
+  year?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type SeedDevDataOutput = {
+  __typename?: 'SeedDevDataOutput';
+  /** Number of categories created. */
+  categoriesCreated: Scalars['Int']['output'];
+  /** Number of transactions created. */
+  transactionsCreated: Scalars['Int']['output'];
 };
 
 export type TransactionFiltersInput = {
@@ -293,6 +323,18 @@ export type DeleteCategoryMutationVariables = Exact<{
 
 
 export type DeleteCategoryMutation = { __typename?: 'Mutation', deleteCategory: boolean };
+
+export type IsDevSeedEnabledQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type IsDevSeedEnabledQuery = { __typename?: 'Query', isDevSeedEnabled: boolean };
+
+export type SeedDevDataMutationVariables = Exact<{
+  input: SeedDevDataInput;
+}>;
+
+
+export type SeedDevDataMutation = { __typename?: 'Mutation', seedDevData: { __typename?: 'SeedDevDataOutput', categoriesCreated: number, transactionsCreated: number } };
 
 export type DashboardSummaryQueryVariables = Exact<{
   month: Scalars['Int']['input'];
@@ -442,6 +484,19 @@ export const DeleteCategoryDocument = new TypedDocumentString(`
   deleteCategory(input: $input)
 }
     `) as unknown as TypedDocumentString<DeleteCategoryMutation, DeleteCategoryMutationVariables>;
+export const IsDevSeedEnabledDocument = new TypedDocumentString(`
+    query IsDevSeedEnabled {
+  isDevSeedEnabled
+}
+    `) as unknown as TypedDocumentString<IsDevSeedEnabledQuery, IsDevSeedEnabledQueryVariables>;
+export const SeedDevDataDocument = new TypedDocumentString(`
+    mutation SeedDevData($input: SeedDevDataInput!) {
+  seedDevData(input: $input) {
+    categoriesCreated
+    transactionsCreated
+  }
+}
+    `) as unknown as TypedDocumentString<SeedDevDataMutation, SeedDevDataMutationVariables>;
 export const DashboardSummaryDocument = new TypedDocumentString(`
     query DashboardSummary($month: Int!, $year: Int!) {
   dashboardSummary(month: $month, year: $year) {

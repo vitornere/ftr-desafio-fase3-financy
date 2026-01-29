@@ -11,6 +11,7 @@ import { buildSchema } from 'type-graphql';
 import { buildContext, type GraphQLContext } from './graphql/context/index.js';
 import { AuthResolver } from './resolvers/auth.resolver.js';
 import { CategoryResolver } from './resolvers/category.resolver.js';
+import { SeedResolver } from './resolvers/seed.resolver.js';
 import { SummaryResolver } from './resolvers/summary.resolver.js';
 import { TransactionResolver } from './resolvers/transaction.resolver.js';
 import { UserResolver } from './resolvers/user.resolver.js';
@@ -29,6 +30,7 @@ async function main() {
       CategoryResolver,
       AuthResolver,
       UserResolver,
+      SeedResolver,
     ],
     validate: false,
     emitSchemaFile: './schema.graphql',

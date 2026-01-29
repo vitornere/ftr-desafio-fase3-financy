@@ -1,6 +1,7 @@
 import { clearTokens, getRefreshToken, getToken } from "@/lib/auth";
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { AppHeader } from "@/components/layout";
+import { DevSeedButton } from "@/features/dev-seed";
 import { isJwtExpired } from "@/lib/jwt";
 import { performTokenRefresh } from "@/lib/refreshToken";
 
@@ -30,6 +31,8 @@ function AppLayout() {
             <main className="mx-auto w-full max-w-screen-2xl px-4 py-6 sm:px-6 lg:px-12 2xl:px-16">
                 <Outlet />
             </main>
+            {/* DEV ONLY: Floating button to seed test data */}
+            <DevSeedButton />
         </div>
     );
 }
