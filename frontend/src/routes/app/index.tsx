@@ -1,6 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { SummaryCards } from "@/features/dashboard/components";
+import {
+    CategoriesCardPlaceholder,
+    RecentTransactionsCard,
+    SummaryCards,
+} from "@/features/dashboard/components";
 
 interface AppSearchParams {
     month?: number;
@@ -39,7 +43,21 @@ function AppHome() {
 
     return (
         <div className="space-y-8 pt-6">
+            {/* Summary Cards */}
             <SummaryCards month={month!} year={year!} />
+
+            {/* Transactions & Categories Grid */}
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+                {/* Categories - Shows first on mobile, second on desktop */}
+                <div className="order-1 lg:order-2 lg:col-span-1">
+                    <CategoriesCardPlaceholder />
+                </div>
+
+                {/* Transactions - Shows second on mobile, first on desktop */}
+                <div className="order-2 lg:order-1 lg:col-span-2">
+                    <RecentTransactionsCard month={month!} year={year!} />
+                </div>
+            </div>
         </div>
     );
 }

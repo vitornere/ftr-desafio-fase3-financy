@@ -1,2 +1,5 @@
+export { CategoriesCardPlaceholder } from "./CategoriesCardPlaceholder"
+export { RecentTransactionRow, RecentTransactionRowSkeleton } from "./RecentTransactionRow"
+export { RecentTransactionsCard } from "./RecentTransactionsCard"
 export { SummaryCard, SummaryCardSkeleton } from "./SummaryCard"
 export { SummaryCards } from "./SummaryCards"

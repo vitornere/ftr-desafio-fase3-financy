@@ -110,6 +110,7 @@ function AppHeader() {
               <AppNavLink
                 key={item.to}
                 to={item.to}
+                exact={item.exact}
                 onClick={closeMobileMenu}
                 className="rounded-md px-3 py-2 text-base hover:bg-muted"
               >
