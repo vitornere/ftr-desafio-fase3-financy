@@ -4,8 +4,10 @@ import { useRouter } from "@tanstack/react-router"
 import { executePublic } from "@/graphql/execute"
 import type { LoginInput, RegisterInput } from "@/graphql/graphql"
 import { clearTokens, setTokens } from "@/lib/auth"
+import { getErrorMessage } from "@/lib/errors"
 import { invalidateAllAfterLogout } from "@/lib/invalidation"
 import { queryKeys } from "@/lib/queryKeys"
+import { toastError } from "@/lib/toast"
 
 import { LoginMutation, RegisterMutation } from "./operations"
 
@@ -25,6 +27,9 @@ export function useLogin() {
       // Invalidate all stale data from previous session
       queryClient.invalidateQueries()
       router.navigate({ to: "/app" })
+    },
+    onError: (err) => {
+      toastError(getErrorMessage(err))
     },
   })
 }
@@ -46,6 +51,9 @@ export function useRegister() {
       // Invalidate all stale data from previous session
       queryClient.invalidateQueries()
       router.navigate({ to: "/app" })
+    },
+    onError: (err) => {
+      toastError(getErrorMessage(err))
     },
   })
 }

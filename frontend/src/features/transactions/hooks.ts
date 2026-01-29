@@ -7,8 +7,10 @@ import type {
   TransactionFiltersInput,
   UpdateTransactionInput,
 } from "@/graphql/graphql"
+import { getErrorMessage } from "@/lib/errors"
 import { invalidateAfterTransactionMutation } from "@/lib/invalidation"
 import { queryKeys } from "@/lib/queryKeys"
+import { toastError, toastSuccess } from "@/lib/toast"
 
 import {
   CreateTransactionMutation,
@@ -42,10 +44,11 @@ export function useCreateTransaction() {
     mutationFn: (input: CreateTransactionInput) =>
       executeAuth(CreateTransactionMutation, { input }),
     onSuccess: () => {
-      // Invalidate all related queries
-      // Note: If we had access to the current month/year from context,
-      // we could pass it here for more targeted invalidation
       invalidateAfterTransactionMutation(queryClient)
+      toastSuccess("Transação criada")
+    },
+    onError: (err) => {
+      toastError(getErrorMessage(err))
     },
   })
 }
@@ -62,6 +65,10 @@ export function useUpdateTransaction() {
       executeAuth(UpdateTransactionMutation, { input }),
     onSuccess: () => {
       invalidateAfterTransactionMutation(queryClient)
+      toastSuccess("Transação atualizada")
+    },
+    onError: (err) => {
+      toastError(getErrorMessage(err))
     },
   })
 }
@@ -78,6 +85,10 @@ export function useDeleteTransaction() {
       executeAuth(DeleteTransactionMutation, { input: { id } }),
     onSuccess: () => {
       invalidateAfterTransactionMutation(queryClient)
+      toastSuccess("Transação removida")
+    },
+    onError: (err) => {
+      toastError(getErrorMessage(err))
     },
   })
 }

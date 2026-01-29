@@ -2,8 +2,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
 import { executeAuth } from "@/graphql/execute"
 import type { CreateCategoryInput, UpdateCategoryInput } from "@/graphql/graphql"
+import { getErrorMessage } from "@/lib/errors"
 import { invalidateAfterCategoryMutation } from "@/lib/invalidation"
 import { queryKeys } from "@/lib/queryKeys"
+import { toastError, toastSuccess } from "@/lib/toast"
 
 import {
   CategoriesQuery,
@@ -34,6 +36,10 @@ export function useCreateCategory() {
       executeAuth(CreateCategoryMutation, { input }),
     onSuccess: () => {
       invalidateAfterCategoryMutation(queryClient)
+      toastSuccess("Categoria criada")
+    },
+    onError: (err) => {
+      toastError(getErrorMessage(err))
     },
   })
 }
@@ -50,6 +56,10 @@ export function useUpdateCategory() {
       executeAuth(UpdateCategoryMutation, { input }),
     onSuccess: () => {
       invalidateAfterCategoryMutation(queryClient)
+      toastSuccess("Categoria atualizada")
+    },
+    onError: (err) => {
+      toastError(getErrorMessage(err))
     },
   })
 }
@@ -66,6 +76,10 @@ export function useDeleteCategory() {
       executeAuth(DeleteCategoryMutation, { input: { id } }),
     onSuccess: () => {
       invalidateAfterCategoryMutation(queryClient)
+      toastSuccess("Categoria removida")
+    },
+    onError: (err) => {
+      toastError(getErrorMessage(err))
     },
   })
 }
