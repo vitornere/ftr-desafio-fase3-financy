@@ -87,6 +87,7 @@ type Query {
   categories: CategoryListOutput!
   dashboardSummary(month: Int!, year: Int!): DashboardSummaryOutput!
   transactions(filters: TransactionFiltersInput, pagination: PaginationInput): TransactionListOutput!
+  userMe: UserModel
 }
 
 type RefreshOutput {

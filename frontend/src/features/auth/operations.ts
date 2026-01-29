@@ -45,3 +45,19 @@ export const RefreshTokenMutation = graphql(`
     }
   }
 `);
+
+/**
+ * Get the currently authenticated user.
+ * Returns null if not authenticated.
+ */
+export const UserMeQuery = graphql(`
+  query UserMe {
+    userMe {
+      id
+      name
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`);

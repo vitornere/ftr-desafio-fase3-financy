@@ -13,6 +13,7 @@ import { AuthResolver } from './resolvers/auth.resolver.js';
 import { CategoryResolver } from './resolvers/category.resolver.js';
 import { SummaryResolver } from './resolvers/summary.resolver.js';
 import { TransactionResolver } from './resolvers/transaction.resolver.js';
+import { UserResolver } from './resolvers/user.resolver.js';
 
 async function main() {
   const app = Fastify({ logger: true });
@@ -27,6 +28,7 @@ async function main() {
       TransactionResolver,
       CategoryResolver,
       AuthResolver,
+      UserResolver,
     ],
     validate: false,
     emitSchemaFile: './schema.graphql',

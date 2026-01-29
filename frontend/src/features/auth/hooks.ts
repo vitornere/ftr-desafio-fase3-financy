@@ -6,7 +6,6 @@ import type { LoginInput, RegisterInput } from "@/graphql/graphql"
 import { clearTokens, setTokens } from "@/lib/auth"
 import { getErrorMessage } from "@/lib/errors"
 import { invalidateAllAfterLogout } from "@/lib/invalidation"
-import { queryKeys } from "@/lib/queryKeys"
 import { toastError } from "@/lib/toast"
 
 import { LoginMutation, RegisterMutation } from "./operations"
@@ -22,9 +21,8 @@ export function useLogin() {
         token: result.login.token,
         refreshToken: result.login.refreshToken,
       })
-      // Cache user data
-      queryClient.setQueryData(queryKeys.auth.me, result.login.user)
       // Invalidate all stale data from previous session
+      // The userMe query will be fetched fresh when needed
       queryClient.invalidateQueries()
       router.navigate({ to: "/app" })
     },
@@ -46,9 +44,8 @@ export function useRegister() {
         token: result.register.token,
         refreshToken: result.register.refreshToken,
       })
-      // Cache user data
-      queryClient.setQueryData(queryKeys.auth.me, result.register.user)
       // Invalidate all stale data from previous session
+      // The userMe query will be fetched fresh when needed
       queryClient.invalidateQueries()
       router.navigate({ to: "/app" })
     },
@@ -67,7 +64,7 @@ export function useLogout() {
       clearTokens()
     },
     onSuccess: () => {
-      // Clear all cached data
+      // Clear all cached data including userMe
       invalidateAllAfterLogout(queryClient)
       router.navigate({ to: "/login" })
     },

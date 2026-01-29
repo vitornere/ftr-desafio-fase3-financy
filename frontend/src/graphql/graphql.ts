@@ -146,6 +146,7 @@ export type Query = {
   categories: CategoryListOutput;
   dashboardSummary: DashboardSummaryOutput;
   transactions: TransactionListOutput;
+  userMe?: Maybe<UserModel>;
 };
 
 
@@ -261,6 +262,11 @@ export type RefreshTokenMutationVariables = Exact<{
 
 
 export type RefreshTokenMutation = { __typename?: 'Mutation', refreshToken: { __typename?: 'RefreshOutput', token: string, refreshToken: string } };
+
+export type UserMeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserMeQuery = { __typename?: 'Query', userMe?: { __typename?: 'UserModel', id: string, name: string, email: string, createdAt: any, updatedAt: any } | null };
 
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -382,6 +388,17 @@ export const RefreshTokenDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<RefreshTokenMutation, RefreshTokenMutationVariables>;
+export const UserMeDocument = new TypedDocumentString(`
+    query UserMe {
+  userMe {
+    id
+    name
+    email
+    createdAt
+    updatedAt
+  }
+}
+    `) as unknown as TypedDocumentString<UserMeQuery, UserMeQueryVariables>;
 export const CategoriesDocument = new TypedDocumentString(`
     query Categories {
   categories {

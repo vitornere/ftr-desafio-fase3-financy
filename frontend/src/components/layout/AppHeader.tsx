@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link, useNavigate } from "@tanstack/react-router"
+import { Link } from "@tanstack/react-router"
 import { Menu, LogOut } from "lucide-react"
 import { Logo, LogoIcon } from "@/components/branding"
 import { Button } from "@/components/ui/button"
@@ -11,17 +11,18 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet"
 import { appNav } from "@/config/nav"
-import { clearTokens } from "@/lib/auth"
+import { useLogout } from "@/features/auth/hooks"
+import { useUserMe } from "@/features/profile/hooks"
+import { getInitials } from "@/features/profile/utils"
 import { AppNavLink } from "./AppNavLink"
 
 /**
  * UserAvatar - Displays user initials in a circular badge.
- * Placeholder implementation - can be enhanced with actual user data later.
  */
-function UserAvatar({ initials = "CT" }: { initials?: string }) {
+function UserAvatar({ initials }: { initials: string }) {
   return (
     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground">
-      {initials}
+      {initials || "?"}
     </div>
   )
 }
@@ -34,12 +35,14 @@ function UserAvatar({ initials = "CT" }: { initials?: string }) {
  */
 function AppHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const navigate = useNavigate()
+  const { data: user } = useUserMe()
+  const logout = useLogout()
+
+  const initials = user?.name ? getInitials(user.name) : ""
 
   const handleLogout = () => {
-    clearTokens()
     setMobileMenuOpen(false)
-    navigate({ to: "/login" })
+    logout.mutate()
   }
 
   const closeMobileMenu = () => {
@@ -67,7 +70,9 @@ function AppHeader() {
 
           {/* Right: User Avatar */}
           <div className="flex items-center justify-end">
-            <UserAvatar />
+            <Link to="/app/profile">
+              <UserAvatar initials={initials} />
+            </Link>
           </div>
         </div>
 
@@ -117,6 +122,15 @@ function AppHeader() {
                 {item.label}
               </AppNavLink>
             ))}
+            <AppNavLink
+              key="/app/profile"
+              to="/app/profile"
+              exact={true}
+              onClick={closeMobileMenu}
+              className="rounded-md px-3 py-2 text-base hover:bg-muted"
+            >
+              Perfil
+            </AppNavLink>
           </nav>
 
           {/* Footer: Logout Button */}
@@ -125,9 +139,10 @@ function AppHeader() {
               variant="ghost"
               className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground"
               onClick={handleLogout}
+              disabled={logout.isPending}
             >
               <LogOut className="h-4 w-4" />
-              Sair
+              {logout.isPending ? "Saindo..." : "Sair"}
             </Button>
           </div>
         </SheetContent>
