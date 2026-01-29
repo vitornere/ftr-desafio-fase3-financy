@@ -10,7 +10,7 @@ interface AuthLayoutProps {
  */
 function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <div className="bg-background flex min-h-screen flex-col items-center px-4 py-8">
+    <div className="bg-background flex flex-col min-h-[calc(100vh-4rem)] items-center px-4 py-16 gap-2">
       <Logo className="mb-6 h-10 w-auto" />
       <div className="w-full max-w-[460px]">{children}</div>
     </div>
