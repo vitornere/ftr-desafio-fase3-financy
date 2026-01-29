@@ -8,6 +8,7 @@ import fastifyApollo, {
 import cors from '@fastify/cors';
 import Fastify from 'fastify';
 import { buildSchema } from 'type-graphql';
+import { buildContext, type GraphQLContext } from './graphql/context/index.js';
 import { HelloResolver } from './resolvers/hello-resolver.js';
 
 async function main() {
@@ -23,7 +24,7 @@ async function main() {
     emitSchemaFile: './schema.graphql',
   });
 
-  const server = new ApolloServer({
+  const server = new ApolloServer<GraphQLContext>({
     schema,
     plugins: [fastifyApolloDrainPlugin(app)],
   });
@@ -31,8 +32,7 @@ async function main() {
   await server.start();
 
   await app.register(fastifyApollo(server), {
-    // path: "/graphql", // the default path is /graphql
-    // context: buildContext,
+    context: buildContext,
   });
 
   await app.listen({ port: 4000, host: '0.0.0.0' });
