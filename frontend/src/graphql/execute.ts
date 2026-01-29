@@ -27,6 +27,7 @@ async function postGraphQL(body: unknown, withAuth: boolean) {
   }
 
   let res: Response
+  console.log('VITE_GRAPHQL_URL', import.meta.env.VITE_GRAPHQL_URL)
   try {
     res = await fetch(import.meta.env.VITE_GRAPHQL_URL, {
       method: "POST",

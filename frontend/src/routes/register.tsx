@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createFileRoute, Link, redirect } from "@tanstack/react-router"
-import { Mail, UserPlus } from "lucide-react"
+import { LogIn, Mail, User } from "lucide-react"
 import { useForm } from "react-hook-form"
 
 import { AuthCard, AuthDivider, AuthLayout } from "@/components/auth"
@@ -9,51 +9,74 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { useLogin } from "@/features/auth/hooks"
-import { loginSchema, type LoginFormValues } from "@/features/forms/schemas"
+import { useRegister } from "@/features/auth/hooks"
+import {
+  registerSchema,
+  type RegisterFormValues,
+} from "@/features/forms/schemas"
 import { isAuthenticated } from "@/lib/auth"
 
-export const Route = createFileRoute("/login")({
+export const Route = createFileRoute("/register")({
   beforeLoad: () => {
-    console.log('Login: isAuthenticated', isAuthenticated())
     if (isAuthenticated()) {
-      console.log('Login: redirecting to /app')
       throw redirect({ to: "/app" })
     }
   },
-  component: LoginPage,
+  component: RegisterPage,
 })
 
-function LoginPage() {
-  const login = useLogin()
+function RegisterPage() {
+  const register = useRegister()
 
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
   })
 
-  const onSubmit = (values: LoginFormValues) => {
-    login.mutate(values)
+  const onSubmit = (values: RegisterFormValues) => {
+    register.mutate(values)
   }
 
-  const isPending = login.isPending
+  const isPending = register.isPending
 
   return (
     <AuthLayout>
       <AuthCard
-        title="Fazer login"
-        subtitle="Entre na sua conta para continuar"
+        title="Criar conta"
+        subtitle="Comece a controlar suas finanças ainda hoje"
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nome completo</FormLabel>
+                  <FormControl>
+                    <TextField
+                      icon={<User className="size-4" />}
+                      type="text"
+                      placeholder="Seu nome completo"
+                      disabled={isPending}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="email"
@@ -87,41 +110,28 @@ function LoginPage() {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>
+                    A senha deve ter no mínimo 8 caracteres
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <div className="flex items-center justify-between">
-              <label className="flex cursor-pointer items-center gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  className="accent-primary size-4 rounded"
-                />
-                Lembrar-me
-              </label>
-              <button
-                type="button"
-                className="text-primary hover:underline text-sm font-medium"
-              >
-                Recuperar senha
-              </button>
-            </div>
-
             <Button type="submit" className="w-full" disabled={isPending}>
-              {isPending ? "Entrando..." : "Entrar"}
+              {isPending ? "Cadastrando..." : "Cadastrar"}
             </Button>
 
             <AuthDivider />
 
             <p className="text-muted-foreground text-center text-sm">
-              Ainda não tem uma conta?
+              Já tem uma conta?
             </p>
 
             <Button variant="outline" className="w-full" asChild>
-              <Link to="/register">
-                <UserPlus className="size-4" />
-                Criar conta
+              <Link to="/login">
+                <LogIn className="size-4" />
+                Fazer login
               </Link>
             </Button>
           </form>
