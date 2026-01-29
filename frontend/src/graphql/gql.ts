@@ -21,6 +21,10 @@ type Documents = {
     "\n  mutation CreateCategory($input: CreateCategoryInput!) {\n    createCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": typeof types.CreateCategoryDocument,
     "\n  mutation UpdateCategory($input: UpdateCategoryInput!) {\n    updateCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": typeof types.UpdateCategoryDocument,
     "\n  mutation DeleteCategory($input: DeleteByIdInput!) {\n    deleteCategory(input: $input)\n  }\n": typeof types.DeleteCategoryDocument,
+    "\n  query Transactions(\n    $filters: TransactionFiltersInput\n    $pagination: PaginationInput\n  ) {\n    transactions(filters: $filters, pagination: $pagination) {\n      items {\n        id\n        type\n        description\n        amountCents\n        date\n        categoryId\n        userId\n        createdAt\n        updatedAt\n      }\n      total\n      page\n      perPage\n    }\n  }\n": typeof types.TransactionsDocument,
+    "\n  mutation CreateTransaction($input: CreateTransactionInput!) {\n    createTransaction(input: $input) {\n      id\n      type\n      description\n      amountCents\n      date\n      categoryId\n      userId\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.CreateTransactionDocument,
+    "\n  mutation UpdateTransaction($input: UpdateTransactionInput!) {\n    updateTransaction(input: $input) {\n      id\n      type\n      description\n      amountCents\n      date\n      categoryId\n      userId\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.UpdateTransactionDocument,
+    "\n  mutation DeleteTransaction($input: DeleteByIdInput!) {\n    deleteTransaction(input: $input)\n  }\n": typeof types.DeleteTransactionDocument,
 };
 const documents: Documents = {
     "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      token\n      refreshToken\n      user {\n        id\n        name\n        email\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.LoginDocument,
@@ -29,6 +33,10 @@ const documents: Documents = {
     "\n  mutation CreateCategory($input: CreateCategoryInput!) {\n    createCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": types.CreateCategoryDocument,
     "\n  mutation UpdateCategory($input: UpdateCategoryInput!) {\n    updateCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": types.UpdateCategoryDocument,
     "\n  mutation DeleteCategory($input: DeleteByIdInput!) {\n    deleteCategory(input: $input)\n  }\n": types.DeleteCategoryDocument,
+    "\n  query Transactions(\n    $filters: TransactionFiltersInput\n    $pagination: PaginationInput\n  ) {\n    transactions(filters: $filters, pagination: $pagination) {\n      items {\n        id\n        type\n        description\n        amountCents\n        date\n        categoryId\n        userId\n        createdAt\n        updatedAt\n      }\n      total\n      page\n      perPage\n    }\n  }\n": types.TransactionsDocument,
+    "\n  mutation CreateTransaction($input: CreateTransactionInput!) {\n    createTransaction(input: $input) {\n      id\n      type\n      description\n      amountCents\n      date\n      categoryId\n      userId\n      createdAt\n      updatedAt\n    }\n  }\n": types.CreateTransactionDocument,
+    "\n  mutation UpdateTransaction($input: UpdateTransactionInput!) {\n    updateTransaction(input: $input) {\n      id\n      type\n      description\n      amountCents\n      date\n      categoryId\n      userId\n      createdAt\n      updatedAt\n    }\n  }\n": types.UpdateTransactionDocument,
+    "\n  mutation DeleteTransaction($input: DeleteByIdInput!) {\n    deleteTransaction(input: $input)\n  }\n": types.DeleteTransactionDocument,
 };
 
 /**
@@ -55,6 +63,22 @@ export function graphql(source: "\n  mutation UpdateCategory($input: UpdateCateg
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation DeleteCategory($input: DeleteByIdInput!) {\n    deleteCategory(input: $input)\n  }\n"): typeof import('./graphql').DeleteCategoryDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Transactions(\n    $filters: TransactionFiltersInput\n    $pagination: PaginationInput\n  ) {\n    transactions(filters: $filters, pagination: $pagination) {\n      items {\n        id\n        type\n        description\n        amountCents\n        date\n        categoryId\n        userId\n        createdAt\n        updatedAt\n      }\n      total\n      page\n      perPage\n    }\n  }\n"): typeof import('./graphql').TransactionsDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateTransaction($input: CreateTransactionInput!) {\n    createTransaction(input: $input) {\n      id\n      type\n      description\n      amountCents\n      date\n      categoryId\n      userId\n      createdAt\n      updatedAt\n    }\n  }\n"): typeof import('./graphql').CreateTransactionDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateTransaction($input: UpdateTransactionInput!) {\n    updateTransaction(input: $input) {\n      id\n      type\n      description\n      amountCents\n      date\n      categoryId\n      userId\n      createdAt\n      updatedAt\n    }\n  }\n"): typeof import('./graphql').UpdateTransactionDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteTransaction($input: DeleteByIdInput!) {\n    deleteTransaction(input: $input)\n  }\n"): typeof import('./graphql').DeleteTransactionDocument;
 
 
 export function graphql(source: string) {

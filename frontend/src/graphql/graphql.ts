@@ -265,6 +265,35 @@ export type DeleteCategoryMutationVariables = Exact<{
 
 export type DeleteCategoryMutation = { __typename?: 'Mutation', deleteCategory: boolean };
 
+export type TransactionsQueryVariables = Exact<{
+  filters?: InputMaybe<TransactionFiltersInput>;
+  pagination?: InputMaybe<PaginationInput>;
+}>;
+
+
+export type TransactionsQuery = { __typename?: 'Query', transactions: { __typename?: 'TransactionListOutput', total: number, page: number, perPage: number, items: Array<{ __typename?: 'TransactionModel', id: string, type: TransactionType, description: string, amountCents: number, date: any, categoryId?: string | null, userId: string, createdAt: any, updatedAt: any }> } };
+
+export type CreateTransactionMutationVariables = Exact<{
+  input: CreateTransactionInput;
+}>;
+
+
+export type CreateTransactionMutation = { __typename?: 'Mutation', createTransaction: { __typename?: 'TransactionModel', id: string, type: TransactionType, description: string, amountCents: number, date: any, categoryId?: string | null, userId: string, createdAt: any, updatedAt: any } };
+
+export type UpdateTransactionMutationVariables = Exact<{
+  input: UpdateTransactionInput;
+}>;
+
+
+export type UpdateTransactionMutation = { __typename?: 'Mutation', updateTransaction: { __typename?: 'TransactionModel', id: string, type: TransactionType, description: string, amountCents: number, date: any, categoryId?: string | null, userId: string, createdAt: any, updatedAt: any } };
+
+export type DeleteTransactionMutationVariables = Exact<{
+  input: DeleteByIdInput;
+}>;
+
+
+export type DeleteTransactionMutation = { __typename?: 'Mutation', deleteTransaction: boolean };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -357,3 +386,58 @@ export const DeleteCategoryDocument = new TypedDocumentString(`
   deleteCategory(input: $input)
 }
     `) as unknown as TypedDocumentString<DeleteCategoryMutation, DeleteCategoryMutationVariables>;
+export const TransactionsDocument = new TypedDocumentString(`
+    query Transactions($filters: TransactionFiltersInput, $pagination: PaginationInput) {
+  transactions(filters: $filters, pagination: $pagination) {
+    items {
+      id
+      type
+      description
+      amountCents
+      date
+      categoryId
+      userId
+      createdAt
+      updatedAt
+    }
+    total
+    page
+    perPage
+  }
+}
+    `) as unknown as TypedDocumentString<TransactionsQuery, TransactionsQueryVariables>;
+export const CreateTransactionDocument = new TypedDocumentString(`
+    mutation CreateTransaction($input: CreateTransactionInput!) {
+  createTransaction(input: $input) {
+    id
+    type
+    description
+    amountCents
+    date
+    categoryId
+    userId
+    createdAt
+    updatedAt
+  }
+}
+    `) as unknown as TypedDocumentString<CreateTransactionMutation, CreateTransactionMutationVariables>;
+export const UpdateTransactionDocument = new TypedDocumentString(`
+    mutation UpdateTransaction($input: UpdateTransactionInput!) {
+  updateTransaction(input: $input) {
+    id
+    type
+    description
+    amountCents
+    date
+    categoryId
+    userId
+    createdAt
+    updatedAt
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateTransactionMutation, UpdateTransactionMutationVariables>;
+export const DeleteTransactionDocument = new TypedDocumentString(`
+    mutation DeleteTransaction($input: DeleteByIdInput!) {
+  deleteTransaction(input: $input)
+}
+    `) as unknown as TypedDocumentString<DeleteTransactionMutation, DeleteTransactionMutationVariables>;
