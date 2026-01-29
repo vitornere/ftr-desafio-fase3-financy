@@ -1,0 +1,155 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type AuthOutput {
+  refreshToken: String!
+  token: String!
+  user: UserModel!
+}
+
+type CategoryListOutput {
+  items: [CategoryModel!]!
+}
+
+type CategoryModel {
+  color: String!
+  createdAt: DateTimeISO!
+  description: String
+  icon: String!
+  id: ID!
+  title: String!
+  transactionCount: Float
+  updatedAt: DateTimeISO!
+  user: UserModel!
+  userId: ID!
+}
+
+input CreateCategoryInput {
+  color: String!
+  description: String
+  icon: String!
+  title: String!
+}
+
+input CreateTransactionInput {
+  amountCents: Int!
+  categoryId: ID
+  date: DateTimeISO!
+  description: String!
+  type: TransactionType!
+}
+
+type DashboardSummaryOutput {
+  """Total balance in cents"""
+  balanceCents: Int!
+  """Total expenses in cents"""
+  expenseMonthCents: Int!
+  """Total income in cents"""
+  incomeMonthCents: Int!
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.This scalar is serialized to a string in ISO 8601 format and parsed from a string in ISO 8601 format.
+"""
+scalar DateTimeISO
+
+input DeleteByIdInput {
+  id: ID!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  createCategory(input: CreateCategoryInput!): CategoryModel!
+  createTransaction(input: CreateTransactionInput!): TransactionModel!
+  deleteCategory(input: DeleteByIdInput!): Boolean!
+  deleteTransaction(input: DeleteByIdInput!): Boolean!
+  login(data: LoginInput!): AuthOutput!
+  register(data: RegisterInput!): AuthOutput!
+  updateCategory(input: UpdateCategoryInput!): CategoryModel!
+  updateTransaction(input: UpdateTransactionInput!): TransactionModel!
+}
+
+input PaginationInput {
+  page: Int = 1
+  perPage: Int = 10
+}
+
+type Query {
+  categories: CategoryListOutput!
+  dashboardSummary(month: Int!, year: Int!): DashboardSummaryOutput!
+  transactions(filters: TransactionFiltersInput, pagination: PaginationInput): TransactionListOutput!
+}
+
+input RegisterInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+input TransactionFiltersInput {
+  """Filtrar por categoria (null = sem categoria)"""
+  categoryId: ID
+  month: Int
+  """Busca por descrição"""
+  search: String
+  type: TransactionType
+  year: Int
+}
+
+type TransactionListOutput {
+  items: [TransactionModel!]!
+  page: Int!
+  perPage: Int!
+  total: Int!
+}
+
+type TransactionModel {
+  amountCents: Int!
+  category: CategoryModel
+  categoryId: ID
+  createdAt: DateTimeISO!
+  date: DateTimeISO!
+  description: String!
+  id: ID!
+  type: TransactionType!
+  updatedAt: DateTimeISO!
+  user: UserModel!
+  userId: ID!
+}
+
+"""Tipo da transação: Receita (INCOME) ou Despesa (EXPENSE)"""
+enum TransactionType {
+  EXPENSE
+  INCOME
+}
+
+input UpdateCategoryInput {
+  color: String
+  description: String
+  icon: String
+  id: ID!
+  title: String
+}
+
+input UpdateTransactionInput {
+  amountCents: Int
+  categoryId: ID
+  date: DateTimeISO
+  description: String
+  id: ID!
+  type: TransactionType
+}
+
+type UserModel {
+  createdAt: DateTimeISO!
+  email: String!
+  id: ID!
+  name: String!
+  updatedAt: DateTimeISO!
+}
