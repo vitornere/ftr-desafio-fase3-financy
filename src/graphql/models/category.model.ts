@@ -12,7 +12,7 @@ export class CategoryModel {
   title!: string;
 
   @Field(() => String, { nullable: true })
-  description?: string;
+  description?: string | null;
 
   // selected icon key in UI (ex: "food", "car", etc.)
   @Field(() => String)
