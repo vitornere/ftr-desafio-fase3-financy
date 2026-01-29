@@ -71,8 +71,8 @@ type Mutation {
   createTransaction(input: CreateTransactionInput!): TransactionModel!
   deleteCategory(input: DeleteByIdInput!): Boolean!
   deleteTransaction(input: DeleteByIdInput!): Boolean!
-  login(data: LoginInput!): AuthOutput!
-  register(data: RegisterInput!): AuthOutput!
+  login(input: LoginInput!): AuthOutput!
+  register(input: RegisterInput!): AuthOutput!
   updateCategory(input: UpdateCategoryInput!): CategoryModel!
   updateTransaction(input: UpdateTransactionInput!): TransactionModel!
 }

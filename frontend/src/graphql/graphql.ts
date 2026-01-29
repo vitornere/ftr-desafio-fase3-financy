@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
+import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -112,12 +112,12 @@ export type MutationDeleteTransactionArgs = {
 
 
 export type MutationLoginArgs = {
-  data: LoginInput;
+  input: LoginInput;
 };
 
 
 export type MutationRegisterArgs = {
-  data: RegisterInput;
+  input: RegisterInput;
 };
 
 
@@ -226,18 +226,44 @@ export type UserModel = {
 };
 
 export type LoginMutationVariables = Exact<{
-  data: LoginInput;
+  input: LoginInput;
 }>;
 
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthOutput', token: string, refreshToken: string, user: { __typename?: 'UserModel', id: string, name: string, email: string, createdAt: any, updatedAt: any } } };
 
 export type RegisterMutationVariables = Exact<{
-  data: RegisterInput;
+  input: RegisterInput;
 }>;
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthOutput', token: string, refreshToken: string, user: { __typename?: 'UserModel', id: string, name: string, email: string, createdAt: any, updatedAt: any } } };
+
+export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoriesQuery = { __typename?: 'Query', categories: { __typename?: 'CategoryListOutput', items: Array<{ __typename?: 'CategoryModel', id: string, title: string, icon: string, color: string, description?: string | null, transactionCount?: number | null }> } };
+
+export type CreateCategoryMutationVariables = Exact<{
+  input: CreateCategoryInput;
+}>;
+
+
+export type CreateCategoryMutation = { __typename?: 'Mutation', createCategory: { __typename?: 'CategoryModel', id: string, title: string, icon: string, color: string, description?: string | null, transactionCount?: number | null } };
+
+export type UpdateCategoryMutationVariables = Exact<{
+  input: UpdateCategoryInput;
+}>;
+
+
+export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory: { __typename?: 'CategoryModel', id: string, title: string, icon: string, color: string, description?: string | null, transactionCount?: number | null } };
+
+export type DeleteCategoryMutationVariables = Exact<{
+  input: DeleteByIdInput;
+}>;
+
+
+export type DeleteCategoryMutation = { __typename?: 'Mutation', deleteCategory: boolean };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -259,8 +285,8 @@ export class TypedDocumentString<TResult, TVariables>
 }
 
 export const LoginDocument = new TypedDocumentString(`
-    mutation Login($data: LoginInput!) {
-  login(data: $data) {
+    mutation Login($input: LoginInput!) {
+  login(input: $input) {
     token
     refreshToken
     user {
@@ -274,8 +300,8 @@ export const LoginDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<LoginMutation, LoginMutationVariables>;
 export const RegisterDocument = new TypedDocumentString(`
-    mutation Register($data: RegisterInput!) {
-  register(data: $data) {
+    mutation Register($input: RegisterInput!) {
+  register(input: $input) {
     token
     refreshToken
     user {
@@ -288,3 +314,46 @@ export const RegisterDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<RegisterMutation, RegisterMutationVariables>;
+export const CategoriesDocument = new TypedDocumentString(`
+    query Categories {
+  categories {
+    items {
+      id
+      title
+      icon
+      color
+      description
+      transactionCount
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CategoriesQuery, CategoriesQueryVariables>;
+export const CreateCategoryDocument = new TypedDocumentString(`
+    mutation CreateCategory($input: CreateCategoryInput!) {
+  createCategory(input: $input) {
+    id
+    title
+    icon
+    color
+    description
+    transactionCount
+  }
+}
+    `) as unknown as TypedDocumentString<CreateCategoryMutation, CreateCategoryMutationVariables>;
+export const UpdateCategoryDocument = new TypedDocumentString(`
+    mutation UpdateCategory($input: UpdateCategoryInput!) {
+  updateCategory(input: $input) {
+    id
+    title
+    icon
+    color
+    description
+    transactionCount
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
+export const DeleteCategoryDocument = new TypedDocumentString(`
+    mutation DeleteCategory($input: DeleteByIdInput!) {
+  deleteCategory(input: $input)
+}
+    `) as unknown as TypedDocumentString<DeleteCategoryMutation, DeleteCategoryMutationVariables>;

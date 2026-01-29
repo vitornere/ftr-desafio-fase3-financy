@@ -1,8 +1,8 @@
 import { graphql } from "@/graphql/gql";
 
 export const LoginMutation = graphql(`
-  mutation Login($data: LoginInput!) {
-    login(data: $data) {
+  mutation Login($input: LoginInput!) {
+    login(input: $input) {
       token
       refreshToken
       user {
@@ -17,8 +17,8 @@ export const LoginMutation = graphql(`
 `);
 
 export const RegisterMutation = graphql(`
-  mutation Register($data: RegisterInput!) {
-    register(data: $data) {
+  mutation Register($input: RegisterInput!) {
+    register(input: $input) {
       token
       refreshToken
       user {

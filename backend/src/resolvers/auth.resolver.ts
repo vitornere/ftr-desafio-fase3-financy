@@ -11,15 +11,15 @@ export class AuthResolver {
 
   @Mutation(() => AuthOutput)
   async register(
-    @Arg('data', () => RegisterInput) data: RegisterInput,
+    @Arg('input', () => RegisterInput) input: RegisterInput,
   ): Promise<AuthOutput> {
-    return this.authService.register(data);
+    return this.authService.register(input);
   }
 
   @Mutation(() => AuthOutput)
   async login(
-    @Arg('data', () => LoginInput) data: LoginInput,
+    @Arg('input', () => LoginInput) input: LoginInput,
   ): Promise<AuthOutput> {
-    return this.authService.login(data);
+    return this.authService.login(input);
   }
 }

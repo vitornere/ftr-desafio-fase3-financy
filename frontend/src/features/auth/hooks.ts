@@ -11,7 +11,7 @@ export function useLogin() {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: (data: LoginInput) => executePublic(LoginMutation, { data }),
+    mutationFn: (input: LoginInput) => executePublic(LoginMutation, { input }),
     onSuccess: (result) => {
       setTokens({
         token: result.login.token,
@@ -29,8 +29,8 @@ export function useRegister() {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: (data: RegisterInput) =>
-      executePublic(RegisterMutation, { data }),
+    mutationFn: (input: RegisterInput) =>
+      executePublic(RegisterMutation, { input }),
     onSuccess: (result) => {
       setTokens({
         token: result.register.token,
