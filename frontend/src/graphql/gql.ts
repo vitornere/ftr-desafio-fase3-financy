@@ -21,6 +21,7 @@ type Documents = {
     "\n  mutation CreateCategory($input: CreateCategoryInput!) {\n    createCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": typeof types.CreateCategoryDocument,
     "\n  mutation UpdateCategory($input: UpdateCategoryInput!) {\n    updateCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": typeof types.UpdateCategoryDocument,
     "\n  mutation DeleteCategory($input: DeleteByIdInput!) {\n    deleteCategory(input: $input)\n  }\n": typeof types.DeleteCategoryDocument,
+    "\n  query DashboardSummary($month: Int!, $year: Int!) {\n    dashboardSummary(month: $month, year: $year) {\n      balanceCents\n      incomeMonthCents\n      expenseMonthCents\n    }\n  }\n": typeof types.DashboardSummaryDocument,
     "\n  query Transactions(\n    $filters: TransactionFiltersInput\n    $pagination: PaginationInput\n  ) {\n    transactions(filters: $filters, pagination: $pagination) {\n      items {\n        id\n        type\n        description\n        amountCents\n        date\n        categoryId\n        userId\n        createdAt\n        updatedAt\n      }\n      total\n      page\n      perPage\n    }\n  }\n": typeof types.TransactionsDocument,
     "\n  mutation CreateTransaction($input: CreateTransactionInput!) {\n    createTransaction(input: $input) {\n      id\n      type\n      description\n      amountCents\n      date\n      categoryId\n      userId\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.CreateTransactionDocument,
     "\n  mutation UpdateTransaction($input: UpdateTransactionInput!) {\n    updateTransaction(input: $input) {\n      id\n      type\n      description\n      amountCents\n      date\n      categoryId\n      userId\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.UpdateTransactionDocument,
@@ -33,6 +34,7 @@ const documents: Documents = {
     "\n  mutation CreateCategory($input: CreateCategoryInput!) {\n    createCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": types.CreateCategoryDocument,
     "\n  mutation UpdateCategory($input: UpdateCategoryInput!) {\n    updateCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": types.UpdateCategoryDocument,
     "\n  mutation DeleteCategory($input: DeleteByIdInput!) {\n    deleteCategory(input: $input)\n  }\n": types.DeleteCategoryDocument,
+    "\n  query DashboardSummary($month: Int!, $year: Int!) {\n    dashboardSummary(month: $month, year: $year) {\n      balanceCents\n      incomeMonthCents\n      expenseMonthCents\n    }\n  }\n": types.DashboardSummaryDocument,
     "\n  query Transactions(\n    $filters: TransactionFiltersInput\n    $pagination: PaginationInput\n  ) {\n    transactions(filters: $filters, pagination: $pagination) {\n      items {\n        id\n        type\n        description\n        amountCents\n        date\n        categoryId\n        userId\n        createdAt\n        updatedAt\n      }\n      total\n      page\n      perPage\n    }\n  }\n": types.TransactionsDocument,
     "\n  mutation CreateTransaction($input: CreateTransactionInput!) {\n    createTransaction(input: $input) {\n      id\n      type\n      description\n      amountCents\n      date\n      categoryId\n      userId\n      createdAt\n      updatedAt\n    }\n  }\n": types.CreateTransactionDocument,
     "\n  mutation UpdateTransaction($input: UpdateTransactionInput!) {\n    updateTransaction(input: $input) {\n      id\n      type\n      description\n      amountCents\n      date\n      categoryId\n      userId\n      createdAt\n      updatedAt\n    }\n  }\n": types.UpdateTransactionDocument,
@@ -63,6 +65,10 @@ export function graphql(source: "\n  mutation UpdateCategory($input: UpdateCateg
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation DeleteCategory($input: DeleteByIdInput!) {\n    deleteCategory(input: $input)\n  }\n"): typeof import('./graphql').DeleteCategoryDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query DashboardSummary($month: Int!, $year: Int!) {\n    dashboardSummary(month: $month, year: $year) {\n      balanceCents\n      incomeMonthCents\n      expenseMonthCents\n    }\n  }\n"): typeof import('./graphql').DashboardSummaryDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

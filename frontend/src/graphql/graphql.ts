@@ -265,6 +265,14 @@ export type DeleteCategoryMutationVariables = Exact<{
 
 export type DeleteCategoryMutation = { __typename?: 'Mutation', deleteCategory: boolean };
 
+export type DashboardSummaryQueryVariables = Exact<{
+  month: Scalars['Int']['input'];
+  year: Scalars['Int']['input'];
+}>;
+
+
+export type DashboardSummaryQuery = { __typename?: 'Query', dashboardSummary: { __typename?: 'DashboardSummaryOutput', balanceCents: number, incomeMonthCents: number, expenseMonthCents: number } };
+
 export type TransactionsQueryVariables = Exact<{
   filters?: InputMaybe<TransactionFiltersInput>;
   pagination?: InputMaybe<PaginationInput>;
@@ -386,6 +394,15 @@ export const DeleteCategoryDocument = new TypedDocumentString(`
   deleteCategory(input: $input)
 }
     `) as unknown as TypedDocumentString<DeleteCategoryMutation, DeleteCategoryMutationVariables>;
+export const DashboardSummaryDocument = new TypedDocumentString(`
+    query DashboardSummary($month: Int!, $year: Int!) {
+  dashboardSummary(month: $month, year: $year) {
+    balanceCents
+    incomeMonthCents
+    expenseMonthCents
+  }
+}
+    `) as unknown as TypedDocumentString<DashboardSummaryQuery, DashboardSummaryQueryVariables>;
 export const TransactionsDocument = new TypedDocumentString(`
     query Transactions($filters: TransactionFiltersInput, $pagination: PaginationInput) {
   transactions(filters: $filters, pagination: $pagination) {
