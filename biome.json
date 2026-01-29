@@ -9,6 +9,7 @@
     "ignoreUnknown": false,
     "includes": [
       "src/**/*.ts",
+      "!src/generated",
       "prisma/**/*.ts",
       "package.json",
       "prisma.config.ts",
@@ -28,6 +29,9 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "single"
+    },
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
     }
   },
   "assist": {

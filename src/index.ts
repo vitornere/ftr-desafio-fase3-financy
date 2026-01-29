@@ -9,7 +9,10 @@ import cors from '@fastify/cors';
 import Fastify from 'fastify';
 import { buildSchema } from 'type-graphql';
 import { buildContext, type GraphQLContext } from './graphql/context/index.js';
-import { HelloResolver } from './resolvers/hello-resolver.js';
+import { AuthResolver } from './resolvers/auth.resolver.js';
+import { CategoryResolver } from './resolvers/category.resolver.js';
+import { SummaryResolver } from './resolvers/summary.resolver.js';
+import { TransactionResolver } from './resolvers/transaction.resolver.js';
 
 async function main() {
   const app = Fastify({ logger: true });
@@ -19,7 +22,12 @@ async function main() {
   });
 
   const schema = await buildSchema({
-    resolvers: [HelloResolver],
+    resolvers: [
+      SummaryResolver,
+      TransactionResolver,
+      CategoryResolver,
+      AuthResolver,
+    ],
     validate: false,
     emitSchemaFile: './schema.graphql',
   });

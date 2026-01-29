@@ -3,7 +3,7 @@ import type { User } from '@/generated/prisma/client.js';
 import { prismaClient } from '@/lib/prisma.js';
 import type { GraphQLContext } from '../context/index.js';
 
-export const GqlUser = () => {
+export function GqlUser() {
   return createParameterDecorator(
     async ({ context }: ResolverData<GraphQLContext>): Promise<User | null> => {
       if (!context?.user) {
@@ -26,4 +26,4 @@ export const GqlUser = () => {
       }
     },
   );
-};
+}

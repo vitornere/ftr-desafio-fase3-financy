@@ -2,6 +2,7 @@ import type {
   CreateCategoryInput,
   UpdateCategoryInput,
 } from '@/graphql/dtos/inputs/category.input.js';
+import type { CategoryListOutput } from '@/graphql/dtos/outputs/category.output.js';
 import type { CategoryModel } from '@/graphql/models/category.model.js';
 import { prismaClient } from '@/lib/prisma.js';
 
@@ -9,6 +10,29 @@ export class CategoryService {
   private requireUser(userId: string | undefined): string {
     if (!userId) throw new Error('Unauthorized');
     return userId;
+  }
+
+  async getById(
+    userId: string,
+    categoryId: string,
+  ): Promise<CategoryModel | null> {
+    const uid = this.requireUser(userId);
+    const category = await prismaClient.category.findUnique({
+      where: { id: categoryId, userId: uid },
+    });
+
+    if (!category) throw new Error('Category not found');
+
+    return {
+      id: category.id,
+      userId: category.userId,
+      title: category.title,
+      description: category.description,
+      icon: category.icon,
+      color: category.color,
+      createdAt: category.createdAt,
+      updatedAt: category.updatedAt,
+    };
   }
 
   async create(
@@ -92,7 +116,7 @@ export class CategoryService {
     return true;
   }
 
-  async list(userId: string | undefined): Promise<CategoryModel[]> {
+  async list(userId: string | undefined): Promise<CategoryListOutput> {
     const uid = this.requireUser(userId);
 
     const categories = await prismaClient.category.findMany({
@@ -100,15 +124,17 @@ export class CategoryService {
       orderBy: { createdAt: 'desc' },
     });
 
-    return categories.map((c) => ({
-      id: c.id,
-      userId: c.userId,
-      title: c.title,
-      description: c.description,
-      icon: c.icon,
-      color: c.color,
-      createdAt: c.createdAt,
-      updatedAt: c.updatedAt,
-    }));
+    return {
+      items: categories.map((c) => ({
+        id: c.id,
+        userId: c.userId,
+        title: c.title,
+        description: c.description,
+        icon: c.icon,
+        color: c.color,
+        createdAt: c.createdAt,
+        updatedAt: c.updatedAt,
+      })),
+    };
   }
 }
