@@ -1,14 +1,17 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "@tanstack/react-router";
-import { executePublic } from "@/graphql/execute";
-import { LoginMutation, RegisterMutation } from "./operations";
-import { clearTokens, setTokens } from "@/lib/auth";
-import { queryKeys } from "@/lib/queryKeys";
-import type { LoginInput, RegisterInput } from "@/graphql/graphql";
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "@tanstack/react-router"
+
+import { executePublic } from "@/graphql/execute"
+import type { LoginInput, RegisterInput } from "@/graphql/graphql"
+import { clearTokens, setTokens } from "@/lib/auth"
+import { invalidateAllAfterLogout } from "@/lib/invalidation"
+import { queryKeys } from "@/lib/queryKeys"
+
+import { LoginMutation, RegisterMutation } from "./operations"
 
 export function useLogin() {
-  const queryClient = useQueryClient();
-  const router = useRouter();
+  const queryClient = useQueryClient()
+  const router = useRouter()
 
   return useMutation({
     mutationFn: (input: LoginInput) => executePublic(LoginMutation, { input }),
@@ -16,17 +19,19 @@ export function useLogin() {
       setTokens({
         token: result.login.token,
         refreshToken: result.login.refreshToken,
-      });
-      queryClient.setQueryData(queryKeys.authMe, result.login.user);
-      queryClient.invalidateQueries();
-      router.navigate({ to: "/app" });
+      })
+      // Cache user data
+      queryClient.setQueryData(queryKeys.auth.me, result.login.user)
+      // Invalidate all stale data from previous session
+      queryClient.invalidateQueries()
+      router.navigate({ to: "/app" })
     },
-  });
+  })
 }
 
 export function useRegister() {
-  const queryClient = useQueryClient();
-  const router = useRouter();
+  const queryClient = useQueryClient()
+  const router = useRouter()
 
   return useMutation({
     mutationFn: (input: RegisterInput) =>
@@ -35,25 +40,28 @@ export function useRegister() {
       setTokens({
         token: result.register.token,
         refreshToken: result.register.refreshToken,
-      });
-      queryClient.setQueryData(queryKeys.authMe, result.register.user);
-      queryClient.invalidateQueries();
-      router.navigate({ to: "/app" });
+      })
+      // Cache user data
+      queryClient.setQueryData(queryKeys.auth.me, result.register.user)
+      // Invalidate all stale data from previous session
+      queryClient.invalidateQueries()
+      router.navigate({ to: "/app" })
     },
-  });
+  })
 }
 
 export function useLogout() {
-  const queryClient = useQueryClient();
-  const router = useRouter();
+  const queryClient = useQueryClient()
+  const router = useRouter()
 
   return useMutation({
     mutationFn: async () => {
-      clearTokens();
+      clearTokens()
     },
     onSuccess: () => {
-      queryClient.clear();
-      router.navigate({ to: "/login" });
+      // Clear all cached data
+      invalidateAllAfterLogout(queryClient)
+      router.navigate({ to: "/login" })
     },
-  });
+  })
 }
