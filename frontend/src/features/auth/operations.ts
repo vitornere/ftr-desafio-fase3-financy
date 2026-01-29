@@ -31,3 +31,17 @@ export const RegisterMutation = graphql(`
     }
   }
 `);
+
+/**
+ * Refresh tokens mutation.
+ * Called with the current refresh token to get new access and refresh tokens.
+ * Does NOT require Authorization header.
+ */
+export const RefreshTokenMutation = graphql(`
+  mutation RefreshToken($input: RefreshTokenInput!) {
+    refreshToken(input: $input) {
+      token
+      refreshToken
+    }
+  }
+`);

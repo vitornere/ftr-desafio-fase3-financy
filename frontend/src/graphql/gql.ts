@@ -17,6 +17,7 @@ import * as types from './graphql';
 type Documents = {
     "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      token\n      refreshToken\n      user {\n        id\n        name\n        email\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": typeof types.LoginDocument,
     "\n  mutation Register($input: RegisterInput!) {\n    register(input: $input) {\n      token\n      refreshToken\n      user {\n        id\n        name\n        email\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": typeof types.RegisterDocument,
+    "\n  mutation RefreshToken($input: RefreshTokenInput!) {\n    refreshToken(input: $input) {\n      token\n      refreshToken\n    }\n  }\n": typeof types.RefreshTokenDocument,
     "\n  query Categories {\n    categories {\n      items {\n        id\n        title\n        icon\n        color\n        description\n        transactionCount\n      }\n    }\n  }\n": typeof types.CategoriesDocument,
     "\n  mutation CreateCategory($input: CreateCategoryInput!) {\n    createCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": typeof types.CreateCategoryDocument,
     "\n  mutation UpdateCategory($input: UpdateCategoryInput!) {\n    updateCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": typeof types.UpdateCategoryDocument,
@@ -30,6 +31,7 @@ type Documents = {
 const documents: Documents = {
     "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      token\n      refreshToken\n      user {\n        id\n        name\n        email\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.LoginDocument,
     "\n  mutation Register($input: RegisterInput!) {\n    register(input: $input) {\n      token\n      refreshToken\n      user {\n        id\n        name\n        email\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.RegisterDocument,
+    "\n  mutation RefreshToken($input: RefreshTokenInput!) {\n    refreshToken(input: $input) {\n      token\n      refreshToken\n    }\n  }\n": types.RefreshTokenDocument,
     "\n  query Categories {\n    categories {\n      items {\n        id\n        title\n        icon\n        color\n        description\n        transactionCount\n      }\n    }\n  }\n": types.CategoriesDocument,
     "\n  mutation CreateCategory($input: CreateCategoryInput!) {\n    createCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": types.CreateCategoryDocument,
     "\n  mutation UpdateCategory($input: UpdateCategoryInput!) {\n    updateCategory(input: $input) {\n      id\n      title\n      icon\n      color\n      description\n      transactionCount\n    }\n  }\n": types.UpdateCategoryDocument,
@@ -49,6 +51,10 @@ export function graphql(source: "\n  mutation Login($input: LoginInput!) {\n    
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation Register($input: RegisterInput!) {\n    register(input: $input) {\n      token\n      refreshToken\n      user {\n        id\n        name\n        email\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): typeof import('./graphql').RegisterDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation RefreshToken($input: RefreshTokenInput!) {\n    refreshToken(input: $input) {\n      token\n      refreshToken\n    }\n  }\n"): typeof import('./graphql').RefreshTokenDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

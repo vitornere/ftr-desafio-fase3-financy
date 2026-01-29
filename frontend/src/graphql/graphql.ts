@@ -85,6 +85,7 @@ export type Mutation = {
   deleteCategory: Scalars['Boolean']['output'];
   deleteTransaction: Scalars['Boolean']['output'];
   login: AuthOutput;
+  refreshToken: RefreshOutput;
   register: AuthOutput;
   updateCategory: CategoryModel;
   updateTransaction: TransactionModel;
@@ -113,6 +114,11 @@ export type MutationDeleteTransactionArgs = {
 
 export type MutationLoginArgs = {
   input: LoginInput;
+};
+
+
+export type MutationRefreshTokenArgs = {
+  input: RefreshTokenInput;
 };
 
 
@@ -152,6 +158,16 @@ export type QueryDashboardSummaryArgs = {
 export type QueryTransactionsArgs = {
   filters?: InputMaybe<TransactionFiltersInput>;
   pagination?: InputMaybe<PaginationInput>;
+};
+
+export type RefreshOutput = {
+  __typename?: 'RefreshOutput';
+  refreshToken: Scalars['String']['output'];
+  token: Scalars['String']['output'];
+};
+
+export type RefreshTokenInput = {
+  refreshToken: Scalars['String']['input'];
 };
 
 export type RegisterInput = {
@@ -238,6 +254,13 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthOutput', token: string, refreshToken: string, user: { __typename?: 'UserModel', id: string, name: string, email: string, createdAt: any, updatedAt: any } } };
+
+export type RefreshTokenMutationVariables = Exact<{
+  input: RefreshTokenInput;
+}>;
+
+
+export type RefreshTokenMutation = { __typename?: 'Mutation', refreshToken: { __typename?: 'RefreshOutput', token: string, refreshToken: string } };
 
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -351,6 +374,14 @@ export const RegisterDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<RegisterMutation, RegisterMutationVariables>;
+export const RefreshTokenDocument = new TypedDocumentString(`
+    mutation RefreshToken($input: RefreshTokenInput!) {
+  refreshToken(input: $input) {
+    token
+    refreshToken
+  }
+}
+    `) as unknown as TypedDocumentString<RefreshTokenMutation, RefreshTokenMutationVariables>;
 export const CategoriesDocument = new TypedDocumentString(`
     query Categories {
   categories {

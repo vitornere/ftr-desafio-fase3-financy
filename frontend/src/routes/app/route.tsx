@@ -1,14 +1,24 @@
-import { isAuthenticated } from "@/lib/auth";
+import { clearTokens, getRefreshToken, getToken } from "@/lib/auth";
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { AppHeader } from "@/components/layout";
+import { isJwtExpired } from "@/lib/jwt";
+import { performTokenRefresh } from "@/lib/refreshToken";
 
 export const Route = createFileRoute("/app")({
     component: AppLayout,
-    beforeLoad: () => {
-        console.log('App: isAuthenticated', isAuthenticated())
-        if (!isAuthenticated()) {
-            console.log('App: redirecting to /login')
-            throw redirect({ to: "/login" })
+    beforeLoad: async () => {
+        const token = getToken()
+        const refresh = getRefreshToken()
+
+        if (!token && !refresh) throw redirect({ to: "/login" })
+
+        if (token && isJwtExpired(token) && refresh) {
+            try {
+                await performTokenRefresh()
+            } catch {
+                clearTokens()
+                throw redirect({ to: "/login" })
+            }
         }
     },
 });
