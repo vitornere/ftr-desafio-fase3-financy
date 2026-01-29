@@ -108,6 +108,15 @@ export const queryKeys = {
     byMonthYear: (month: number, year: number) =>
       ["summary", "byMonthYear", month, year] as const,
   },
+
+  // ===========================================================================
+  // Categories Summary (Dashboard)
+  // ===========================================================================
+  categoriesSummary: {
+    all: ["categoriesSummary"] as const,
+    byMonthYear: (month: number, year: number, limit?: number) =>
+      ["categoriesSummary", month, year, limit] as const,
+  },
 } as const
 
 // =============================================================================

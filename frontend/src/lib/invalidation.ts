@@ -103,6 +103,7 @@ export function invalidateAfterCategoryMutation(
  * - Invalidate transactions (list + detail)
  * - Invalidate categories (transactionCount field)
  * - Invalidate summary (amounts change)
+ * - Invalidate categoriesSummary (dashboard category aggregations)
  *
  * @param queryClient - TanStack Query client
  * @param opts - Optional month/year for targeted summary invalidation
@@ -113,4 +114,6 @@ export function invalidateAfterTransactionMutation(
 ): void {
   invalidateTransactions(queryClient, opts)
   invalidateCategories(queryClient)
+  // Invalidate categories summary (dashboard aggregations)
+  queryClient.invalidateQueries({ queryKey: queryKeys.categoriesSummary.all })
 }

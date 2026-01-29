@@ -37,7 +37,7 @@ export interface CategorySummary {
  */
 export function useCategoriesSummary(month: number, year: number, limit = 5) {
   return useQuery({
-    queryKey: ["categoriesSummary", month, year, limit] as const,
+    queryKey: queryKeys.categoriesSummary.byMonthYear(month, year, limit),
     queryFn: async () => {
       // Fetch all transactions for the month/year
       // Using a high perPage to get all transactions (API limit)
