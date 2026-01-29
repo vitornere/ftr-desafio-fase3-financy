@@ -96,4 +96,4 @@ function PaginationEllipsis({
   )
 }
 
-export { PaginationButton, PaginationEllipsis, paginationButtonVariants }
+export { PaginationButton, PaginationEllipsis }

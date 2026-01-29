@@ -1,7 +1,9 @@
 import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import { type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import { cva } from "class-variance-authority"
+
 
 /**
  * Tag color variants based on the accent palette from the style guide.
@@ -29,6 +31,7 @@ const tagVariants = cva(
     },
   }
 )
+
 
 export type TagColor = NonNullable<VariantProps<typeof tagVariants>["color"]>
 
@@ -58,4 +61,4 @@ function Tag({ className, color = "gray", ...props }: TagProps) {
   )
 }
 
-export { Tag, tagVariants }
+export { Tag }

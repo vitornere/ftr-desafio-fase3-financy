@@ -18,13 +18,13 @@ function SummaryCard({ icon, label, value, className }: SummaryCardProps) {
       {/* Header: Icon + Label */}
       <div className="flex items-center gap-3">
         <span className="flex h-5 w-5 items-center justify-center">{icon}</span>
-        <span className="text-xs font-medium uppercase tracking-[0.6px] text-[color:var(--gray-500)]">
+        <span className="text-xs font-medium uppercase tracking-[0.6px] text-(--gray-500)">
           {label}
         </span>
       </div>
 
       {/* Value */}
-      <p className="mt-4 text-[28px] font-bold leading-8 text-[color:var(--gray-800)]">
+      <p className="mt-4 text-[28px] font-bold leading-8 text-(--gray-800)">
         {value}
       </p>
     </Card>

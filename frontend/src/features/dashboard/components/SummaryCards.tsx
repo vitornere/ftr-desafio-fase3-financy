@@ -44,7 +44,7 @@ function SummaryCards({ month, year }: SummaryCardsProps) {
     return (
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <SummaryCard
-          icon={<Wallet className="h-5 w-5 text-[color:var(--purple-base)]" />}
+          icon={<Wallet className="h-5 w-5 text-(--purple-base)" />}
           label="Saldo total"
           value={formatBRLFromCents(0)}
         />
@@ -66,7 +66,7 @@ function SummaryCards({ month, year }: SummaryCardsProps) {
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {/* Card 1: Saldo total */}
       <SummaryCard
-        icon={<Wallet className="h-5 w-5 text-[color:var(--purple-base)]" />}
+        icon={<Wallet className="h-5 w-5 text-(--purple-base)" />}
         label="Saldo total"
         value={formatBRLFromCents(balanceCents)}
       />

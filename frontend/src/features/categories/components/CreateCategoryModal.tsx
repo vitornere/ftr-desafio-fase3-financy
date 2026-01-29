@@ -98,7 +98,7 @@ interface IconPickerProps {
 function IconPicker({ value, onChange, disabled }: IconPickerProps) {
   return (
     <div className="space-y-2">
-      <Label className="text-sm font-medium text-[color:var(--gray-700)]">
+      <Label className="text-sm font-medium text-(--gray-700)">
         Ícone
       </Label>
       <div className="grid grid-cols-6 gap-2 sm:grid-cols-8">
@@ -117,8 +117,8 @@ function IconPicker({ value, onChange, disabled }: IconPickerProps) {
                 "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
                 "disabled:pointer-events-none disabled:opacity-50",
                 isSelected
-                  ? "border-[color:var(--brand-base)] bg-[color:var(--gray-100)]"
-                  : "border-[color:var(--gray-300)] bg-background hover:bg-[color:var(--gray-100)]"
+                  ? "border-(--brand-base) bg-(--gray-100)"
+                  : "border-(--gray-300) bg-background hover:bg-(--gray-100)"
               )}
               aria-label={option.key}
               aria-pressed={isSelected}
@@ -127,8 +127,8 @@ function IconPicker({ value, onChange, disabled }: IconPickerProps) {
                 className={cn(
                   "h-5 w-5",
                   isSelected
-                    ? "text-[color:var(--gray-600)]"
-                    : "text-[color:var(--gray-500)]"
+                    ? "text-(--gray-600)"
+                    : "text-(--gray-500)"
                 )}
               />
             </button>
@@ -152,10 +152,10 @@ interface ColorPickerProps {
 function ColorPicker({ value, onChange, disabled }: ColorPickerProps) {
   return (
     <div className="space-y-2">
-      <Label className="text-sm font-medium text-[color:var(--gray-700)]">
+      <Label className="text-sm font-medium text-(--gray-700)">
         Cor
       </Label>
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-4">
         {COLOR_OPTIONS.map((color) => {
           const isSelected = value === color
 
@@ -170,8 +170,8 @@ function ColorPicker({ value, onChange, disabled }: ColorPickerProps) {
                 "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
                 "disabled:pointer-events-none disabled:opacity-50",
                 isSelected
-                  ? "border-[color:var(--brand-base)] bg-[color:var(--gray-100)]"
-                  : "border-[color:var(--gray-300)] bg-background hover:bg-[color:var(--gray-100)]"
+                  ? "border-(--brand-base) bg-(--gray-100)"
+                  : "border-(--gray-300) bg-background hover:bg-(--gray-100)"
               )}
               aria-label={`Cor ${color}`}
               aria-pressed={isSelected}
@@ -254,10 +254,10 @@ function CreateCategoryModal({ open, onOpenChange }: CreateCategoryModalProps) {
             {/* Header */}
             <div className="flex items-start justify-between gap-4">
               <div className="flex flex-col gap-1">
-                <h2 className="text-base font-semibold text-[color:var(--gray-800)]">
+                <h2 className="text-base font-semibold text-(--gray-800)">
                   Nova categoria
                 </h2>
-                <p className="text-sm text-[color:var(--gray-600)]">
+                <p className="text-sm text-(--gray-600)">
                   Organize suas transações com categorias
                 </p>
               </div>
@@ -265,10 +265,10 @@ function CreateCategoryModal({ open, onOpenChange }: CreateCategoryModalProps) {
                 type="button"
                 onClick={() => onOpenChange(false)}
                 disabled={isSubmitting}
-                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[color:var(--gray-300)] bg-background transition-colors hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-(--gray-300) bg-background transition-colors hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                 aria-label="Fechar"
               >
-                <X className="h-4 w-4 text-[color:var(--gray-700)]" />
+                <X className="h-4 w-4 text-(--gray-700)" />
               </button>
             </div>
 
@@ -278,7 +278,7 @@ function CreateCategoryModal({ open, onOpenChange }: CreateCategoryModalProps) {
               <div className="space-y-2">
                 <Label
                   htmlFor="category-title"
-                  className="text-sm font-medium text-[color:var(--gray-700)]"
+                  className="text-sm font-medium text-(--gray-700)"
                 >
                   Título
                 </Label>
@@ -289,7 +289,7 @@ function CreateCategoryModal({ open, onOpenChange }: CreateCategoryModalProps) {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   disabled={isSubmitting}
-                  className="h-12 rounded-lg border-[color:var(--gray-300)] px-3 placeholder:text-[color:var(--gray-400)]"
+                  className="h-12 rounded-lg border-(--gray-300) px-3 placeholder:text-(--gray-400)"
                 />
               </div>
 
@@ -297,7 +297,7 @@ function CreateCategoryModal({ open, onOpenChange }: CreateCategoryModalProps) {
               <div className="space-y-2">
                 <Label
                   htmlFor="category-description"
-                  className="text-sm font-medium text-[color:var(--gray-700)]"
+                  className="text-sm font-medium text-(--gray-700)"
                 >
                   Descrição
                 </Label>
@@ -308,9 +308,9 @@ function CreateCategoryModal({ open, onOpenChange }: CreateCategoryModalProps) {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   disabled={isSubmitting}
-                  className="h-12 rounded-lg border-[color:var(--gray-300)] px-3 placeholder:text-[color:var(--gray-400)]"
+                  className="h-12 rounded-lg border-(--gray-300) px-3 placeholder:text-(--gray-400)"
                 />
-                <p className="text-xs text-[color:var(--gray-500)]">Opcional</p>
+                <p className="text-xs text-(--gray-500)">Opcional</p>
               </div>
 
               {/* Icon Picker */}
@@ -331,7 +331,7 @@ function CreateCategoryModal({ open, onOpenChange }: CreateCategoryModalProps) {
               <Button
                 type="submit"
                 disabled={!isValid || isSubmitting}
-                className="h-12 w-full rounded-lg bg-[color:var(--brand-base)] text-white hover:bg-[color:var(--brand-dark)]"
+                className="h-12 w-full rounded-lg bg-(--brand-base) text-white hover:bg-(--brand-dark)"
               >
                 {isSubmitting ? (
                   <>

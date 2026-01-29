@@ -53,12 +53,12 @@ function CategoryRow({
       </div>
 
       {/* Items Count - flex grow, right aligned */}
-      <div className="flex-1 text-right text-sm text-[color:var(--gray-600)]">
+      <div className="flex-1 text-right text-sm text-(--gray-600)">
         {itemsCount} {pluralizeItem(itemsCount)}
       </div>
 
       {/* Total Amount - fixed width, right aligned */}
-      <div className="w-[88px] text-right text-sm font-semibold tabular-nums text-[color:var(--gray-800)]">
+      <div className="w-[88px] text-right text-sm font-semibold tabular-nums text-(--gray-800)">
         {formatBRLFromCents(totalAmountCents)}
       </div>
     </div>

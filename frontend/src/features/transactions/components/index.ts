@@ -4,6 +4,12 @@ export {
 } from "./NewTransactionModal"
 
 export {
+  EditTransactionModal,
+  type EditTransactionModalProps,
+  type TransactionData,
+} from "./EditTransactionModal"
+
+export {
   TransactionTypeToggle,
   type TransactionType,
   type TransactionTypeToggleProps,

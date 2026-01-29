@@ -12,7 +12,7 @@ function CategoriesCardPlaceholder() {
     <Card className="flex flex-col gap-0 overflow-hidden rounded-xl border-border p-0 shadow-none">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-border py-5 pl-6 pr-3">
-        <span className="text-xs font-medium uppercase tracking-[0.6px] text-[color:var(--gray-500)]">
+        <span className="text-xs font-medium uppercase tracking-[0.6px] text-(--gray-500)">
           Categorias
         </span>
         <Link

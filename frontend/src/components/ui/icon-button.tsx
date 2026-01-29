@@ -1,8 +1,9 @@
 import * as React from "react"
 import { type VariantProps } from "class-variance-authority"
 
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { buttonVariants } from "./button-variants"
 
 type ButtonVariant = NonNullable<VariantProps<typeof buttonVariants>["variant"]>
 

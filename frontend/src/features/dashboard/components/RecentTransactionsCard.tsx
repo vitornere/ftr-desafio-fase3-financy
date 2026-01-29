@@ -49,7 +49,7 @@ function RecentTransactionsCard({ month, year }: RecentTransactionsCardProps) {
           </span>
           <Link
             to="/app/transactions"
-            search={{ month, year }}
+            search={{ month, year, page: 1, perPage: 10 }}
             className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
           >
             Ver todas

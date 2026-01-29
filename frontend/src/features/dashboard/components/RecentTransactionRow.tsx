@@ -80,10 +80,10 @@ function RecentTransactionRow({
 
       {/* Description & Date */}
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="truncate text-base font-medium leading-6 text-[color:var(--gray-800)]">
+        <span className="truncate text-base font-medium leading-6 text-(--gray-800)">
           {description}
         </span>
-        <span className="text-sm leading-5 text-[color:var(--gray-600)]">
+        <span className="text-sm leading-5 text-(--gray-600)">
           {formatDateShort(date)}
         </span>
       </div>
@@ -103,13 +103,13 @@ function RecentTransactionRow({
 
       {/* Amount & Arrow */}
       <div className="flex shrink-0 items-center justify-end gap-2">
-        <span className="text-sm font-semibold tabular-nums text-[color:var(--gray-800)]">
+        <span className="text-sm font-semibold tabular-nums text-(--gray-800)">
           {amountPrefix}{formattedAmount}
         </span>
         {isIncome ? (
           <CircleArrowUp className="h-4 w-4 text-primary" />
         ) : (
-          <CircleArrowDown className="h-4 w-4 text-[color:var(--danger)]" />
+          <CircleArrowDown className="h-4 w-4 text-(--danger)" />
         )}
       </div>
     </div>
