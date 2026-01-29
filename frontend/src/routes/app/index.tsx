@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import {
-    CategoriesCardPlaceholder,
+    CategoriesCard,
     RecentTransactionsCard,
     SummaryCards,
 } from "@/features/dashboard/components";
@@ -50,7 +50,7 @@ function AppHome() {
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                 {/* Categories - Shows first on mobile, second on desktop */}
                 <div className="order-1 lg:order-2 lg:col-span-1">
-                    <CategoriesCardPlaceholder />
+                    <CategoriesCard month={month!} year={year!} />
                 </div>
 
                 {/* Transactions - Shows second on mobile, first on desktop */}
