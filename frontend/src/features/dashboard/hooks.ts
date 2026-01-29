@@ -18,7 +18,6 @@ export function useRecentTransactions(month: number, year: number) {
       }),
   })
 }
-
 // =============================================================================
 // Categories Summary
 // =============================================================================
@@ -88,3 +87,4 @@ export function useCategoriesSummary(month: number, year: number, limit = 5) {
     },
   })
 }
+

@@ -35,6 +35,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { EmptyState } from "@/components/ui/empty-state"
+import { CreateCategoryModal } from "@/features/categories/components"
 import { useCategories } from "@/features/categories/hooks"
 import { cn } from "@/lib/utils"
 
@@ -275,6 +276,8 @@ function pluralizeItem(count: number): string {
 // =============================================================================
 
 function CategoriesPage() {
+  const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false)
+
   const { data, isLoading, isError } = useCategories()
 
   const categories = data?.categories?.items ?? []
@@ -304,7 +307,7 @@ function CategoriesPage() {
                 Organize suas transações por categorias
               </p>
             </div>
-            <Button className="shrink-0">
+            <Button className="shrink-0" onClick={() => setIsCreateModalOpen(true)}>
               <Plus className="h-4 w-4" />
               Nova categoria
             </Button>
@@ -377,6 +380,12 @@ function CategoriesPage() {
           )}
         </div>
       </div>
+
+      {/* Create Category Modal */}
+      <CreateCategoryModal
+        open={isCreateModalOpen}
+        onOpenChange={setIsCreateModalOpen}
+      />
     </div>
   )
 }
