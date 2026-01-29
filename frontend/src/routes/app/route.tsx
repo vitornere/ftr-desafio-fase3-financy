@@ -1,5 +1,6 @@
 import { isAuthenticated } from "@/lib/auth";
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
+import { AppHeader } from "@/components/layout";
 
 export const Route = createFileRoute("/app")({
     component: AppLayout,
@@ -14,9 +15,11 @@ export const Route = createFileRoute("/app")({
 
 function AppLayout() {
     return (
-        <div style={{ padding: 24 }}>
-            <h1>Área logada</h1>
-            <Outlet />
+        <div className="min-h-screen bg-background">
+            <AppHeader />
+            <main className="mx-auto w-full max-w-screen-2xl px-4 py-6 sm:px-6 lg:px-12 2xl:px-16">
+                <Outlet />
+            </main>
         </div>
     );
 }
