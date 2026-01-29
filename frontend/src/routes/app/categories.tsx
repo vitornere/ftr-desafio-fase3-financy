@@ -34,9 +34,21 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import { EmptyState } from "@/components/ui/empty-state"
-import { CreateCategoryModal } from "@/features/categories/components"
-import { useCategories } from "@/features/categories/hooks"
+import {
+  CreateCategoryModal,
+  EditCategoryModal,
+  type CategoryData,
+} from "@/features/categories/components"
+import { useCategories, useDeleteCategory } from "@/features/categories/hooks"
 import { cn } from "@/lib/utils"
 
 // =============================================================================
@@ -276,9 +288,19 @@ function pluralizeItem(count: number): string {
 // =============================================================================
 
 function CategoriesPage() {
+  // Modal states
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = React.useState(false)
+  const [editingCategory, setEditingCategory] = React.useState<CategoryData | null>(null)
+
+  // Delete confirmation state
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false)
+  const [deletingCategoryId, setDeletingCategoryId] = React.useState<string | null>(null)
 
   const { data, isLoading, isError } = useCategories()
+
+  // Delete mutation
+  const deleteCategory = useDeleteCategory()
 
   const categories = data?.categories?.items ?? []
   const totalCategories = categories.length
@@ -294,6 +316,29 @@ function CategoriesPage() {
         (cat.transactionCount ?? 0) > (max.transactionCount ?? 0) ? cat : max
       )
       : null
+
+  // Handlers
+  const handleEditClick = (cat: CategoryData) => {
+    setEditingCategory(cat)
+    setIsEditModalOpen(true)
+  }
+
+  const handleDeleteClick = (id: string) => {
+    setDeletingCategoryId(id)
+    setDeleteDialogOpen(true)
+  }
+
+  const handleConfirmDelete = async () => {
+    if (!deletingCategoryId) return
+
+    try {
+      await deleteCategory.mutateAsync(deletingCategoryId)
+      setDeleteDialogOpen(false)
+      setDeletingCategoryId(null)
+    } catch {
+      // Error is handled by the hook
+    }
+  }
 
   return (
     <div className="min-h-[800px]">
@@ -369,11 +414,20 @@ function CategoriesPage() {
               {categories.map((category) => (
                 <CategoryCard
                   key={category.id}
+                  id={category.id}
                   title={category.title}
                   description={category.description}
                   icon={category.icon}
                   color={category.color}
                   transactionCount={category.transactionCount ?? 0}
+                  onEdit={() => handleEditClick({
+                    id: category.id,
+                    title: category.title,
+                    description: category.description,
+                    icon: category.icon,
+                    color: category.color,
+                  })}
+                  onDelete={() => handleDeleteClick(category.id)}
                 />
               ))}
             </div>
@@ -385,6 +439,21 @@ function CategoriesPage() {
       <CreateCategoryModal
         open={isCreateModalOpen}
         onOpenChange={setIsCreateModalOpen}
+      />
+
+      {/* Edit Category Modal */}
+      <EditCategoryModal
+        open={isEditModalOpen}
+        onOpenChange={setIsEditModalOpen}
+        category={editingCategory}
+      />
+
+      {/* Delete Confirmation Dialog */}
+      <DeleteConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={handleConfirmDelete}
+        isDeleting={deleteCategory.isPending}
       />
     </div>
   )
@@ -436,11 +505,14 @@ function KpiCard({ icon: Icon, iconColor, value, label }: KpiCardProps) {
 // =============================================================================
 
 interface CategoryCardProps {
+  id: string
   title: string
   description?: string | null
   icon: string
   color: string
   transactionCount: number
+  onEdit: () => void
+  onDelete: () => void
 }
 
 function CategoryCard({
@@ -449,6 +521,8 @@ function CategoryCard({
   icon,
   color,
   transactionCount,
+  onEdit,
+  onDelete,
 }: CategoryCardProps) {
   const colors = getCategoryColors(color)
 
@@ -468,12 +542,13 @@ function CategoryCard({
           />
         </div>
 
-        {/* Action Buttons (no onClick) */}
+        {/* Action Buttons */}
         <div className="flex gap-1">
           <Button
             variant="outline"
             size="icon-xs"
             aria-label="Editar categoria"
+            onClick={onEdit}
             className="text-muted-foreground hover:text-foreground"
           >
             <Pencil className="h-3.5 w-3.5" />
@@ -482,6 +557,7 @@ function CategoryCard({
             variant="outline"
             size="icon-xs"
             aria-label="Deletar categoria"
+            onClick={onDelete}
             className="text-destructive hover:bg-destructive/10 hover:text-destructive"
           >
             <Trash2 className="h-3.5 w-3.5" />
@@ -546,5 +622,52 @@ function CategoryCardSkeleton() {
         <div className="h-4 w-14 rounded bg-muted" />
       </div>
     </Card>
+  )
+}
+
+// =============================================================================
+// Delete Confirm Dialog
+// =============================================================================
+
+interface DeleteConfirmDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onConfirm: () => void
+  isDeleting: boolean
+}
+
+function DeleteConfirmDialog({
+  open,
+  onOpenChange,
+  onConfirm,
+  isDeleting,
+}: DeleteConfirmDialogProps) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle>Excluir categoria</DialogTitle>
+          <DialogDescription>
+            Tem certeza que deseja excluir esta categoria? As transações associadas não serão excluídas, mas ficarão sem categoria.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            disabled={isDeleting}
+          >
+            Cancelar
+          </Button>
+          <Button
+            variant="destructive"
+            onClick={onConfirm}
+            disabled={isDeleting}
+          >
+            {isDeleting ? "Excluindo..." : "Excluir"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }
