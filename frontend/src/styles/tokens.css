@@ -1,0 +1,206 @@
+/* ==========================================================================
+   Design Tokens - Financy Style Guide
+   ========================================================================== */
+
+:root {
+  /* ==========================================================================
+     Brand Colors
+     ========================================================================== */
+  --brand-light: #2E8B57;
+  --brand-base: #1F6F43;
+  --brand-dark: #165C37;
+
+  /* ==========================================================================
+     Grayscale
+     ========================================================================== */
+  --gray-100: #F5F5F5;
+  --gray-200: #E5E5E5;
+  --gray-300: #D4D4D4;
+  --gray-400: #A3A3A3;
+  --gray-500: #737373;
+  --gray-600: #525252;
+  --gray-700: #404040;
+  --gray-800: #262626;
+
+  /* ==========================================================================
+     Neutral Colors
+     ========================================================================== */
+  --white: #FFFFFF;
+  --black: #000000;
+
+  /* ==========================================================================
+     Feedback Colors
+     ========================================================================== */
+  --success: #16A34A;
+  --success-light: #DCFCE7;
+  --success-dark: #15803D;
+
+  --danger: #DC2626;
+  --danger-light: #FEE2E2;
+  --danger-dark: #B91C1C;
+
+  --warning: #F59E0B;
+  --warning-light: #FEF3C7;
+  --warning-dark: #D97706;
+
+  --info: #3B82F6;
+  --info-light: #DBEAFE;
+  --info-dark: #2563EB;
+
+  /* ==========================================================================
+     Accent Colors (for Tags / Categories)
+     ========================================================================== */
+  /* Red */
+  --accent-red-bg: #FEE2E2;
+  --accent-red-text: #991B1B;
+
+  /* Orange */
+  --accent-orange-bg: #FFEDD5;
+  --accent-orange-text: #9A3412;
+
+  /* Yellow */
+  --accent-yellow-bg: #FEF3C7;
+  --accent-yellow-text: #92400E;
+
+  /* Green */
+  --accent-green-bg: #DCFCE7;
+  --accent-green-text: #166534;
+
+  /* Teal */
+  --accent-teal-bg: #CCFBF1;
+  --accent-teal-text: #115E59;
+
+  /* Blue */
+  --accent-blue-bg: #DBEAFE;
+  --accent-blue-text: #1E40AF;
+
+  /* Indigo */
+  --accent-indigo-bg: #E0E7FF;
+  --accent-indigo-text: #3730A3;
+
+  /* Purple */
+  --accent-purple-bg: #F3E8FF;
+  --accent-purple-text: #6B21A8;
+
+  /* Pink */
+  --accent-pink-bg: #FCE7F3;
+  --accent-pink-text: #9D174D;
+
+  /* Gray */
+  --accent-gray-bg: #F3F4F6;
+  --accent-gray-text: #374151;
+
+  /* ==========================================================================
+     Typography
+     ========================================================================== */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  /* ==========================================================================
+     Spacing / Radius
+     ========================================================================== */
+  --radius: 12px;
+
+  /* ==========================================================================
+     shadcn/ui Variable Mappings
+     ========================================================================== */
+  
+  /* Background & Foreground */
+  --background: var(--gray-100);
+  --foreground: var(--gray-800);
+
+  /* Card & Popover */
+  --card: var(--white);
+  --card-foreground: var(--gray-800);
+  --popover: var(--white);
+  --popover-foreground: var(--gray-800);
+
+  /* Primary (Brand) */
+  --primary: var(--brand-base);
+  --primary-foreground: var(--white);
+
+  /* Secondary */
+  --secondary: var(--gray-200);
+  --secondary-foreground: var(--gray-800);
+
+  /* Muted */
+  --muted: var(--gray-200);
+  --muted-foreground: var(--gray-600);
+
+  /* Accent */
+  --accent: var(--gray-200);
+  --accent-foreground: var(--gray-800);
+
+  /* Destructive */
+  --destructive: var(--danger);
+  --destructive-foreground: var(--white);
+
+  /* Success (custom) */
+  --success-color: var(--success);
+  --success-foreground: var(--white);
+
+  /* Border & Input */
+  --border: var(--gray-300);
+  --input: var(--gray-300);
+
+  /* Ring (focus) */
+  --ring: var(--brand-base);
+
+  /* Chart colors */
+  --chart-1: var(--brand-base);
+  --chart-2: var(--info);
+  --chart-3: var(--warning);
+  --chart-4: var(--success);
+  --chart-5: var(--danger);
+
+  /* Sidebar */
+  --sidebar: var(--white);
+  --sidebar-foreground: var(--gray-800);
+  --sidebar-primary: var(--brand-base);
+  --sidebar-primary-foreground: var(--white);
+  --sidebar-accent: var(--gray-100);
+  --sidebar-accent-foreground: var(--gray-800);
+  --sidebar-border: var(--gray-200);
+  --sidebar-ring: var(--brand-base);
+}
+
+/* ==========================================================================
+   Dark Mode (optional - keeping for future use)
+   ========================================================================== */
+.dark {
+  --background: var(--gray-800);
+  --foreground: var(--gray-100);
+
+  --card: var(--gray-700);
+  --card-foreground: var(--gray-100);
+  --popover: var(--gray-700);
+  --popover-foreground: var(--gray-100);
+
+  --primary: var(--brand-light);
+  --primary-foreground: var(--white);
+
+  --secondary: var(--gray-600);
+  --secondary-foreground: var(--gray-100);
+
+  --muted: var(--gray-600);
+  --muted-foreground: var(--gray-400);
+
+  --accent: var(--gray-600);
+  --accent-foreground: var(--gray-100);
+
+  --destructive: var(--danger);
+  --destructive-foreground: var(--white);
+
+  --border: var(--gray-600);
+  --input: var(--gray-600);
+
+  --ring: var(--brand-light);
+
+  --sidebar: var(--gray-800);
+  --sidebar-foreground: var(--gray-100);
+  --sidebar-primary: var(--brand-light);
+  --sidebar-primary-foreground: var(--white);
+  --sidebar-accent: var(--gray-700);
+  --sidebar-accent-foreground: var(--gray-100);
+  --sidebar-border: var(--gray-600);
+  --sidebar-ring: var(--brand-light);
+}
