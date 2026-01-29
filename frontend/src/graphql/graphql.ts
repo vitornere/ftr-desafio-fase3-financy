@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -224,6 +225,20 @@ export type UserModel = {
   updatedAt: Scalars['DateTimeISO']['output'];
 };
 
+export type LoginMutationVariables = Exact<{
+  data: LoginInput;
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthOutput', token: string, refreshToken: string, user: { __typename?: 'UserModel', id: string, name: string, email: string, createdAt: any, updatedAt: any } } };
+
+export type RegisterMutationVariables = Exact<{
+  data: RegisterInput;
+}>;
+
+
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthOutput', token: string, refreshToken: string, user: { __typename?: 'UserModel', id: string, name: string, email: string, createdAt: any, updatedAt: any } } };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -242,3 +257,34 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+
+export const LoginDocument = new TypedDocumentString(`
+    mutation Login($data: LoginInput!) {
+  login(data: $data) {
+    token
+    refreshToken
+    user {
+      id
+      name
+      email
+      createdAt
+      updatedAt
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<LoginMutation, LoginMutationVariables>;
+export const RegisterDocument = new TypedDocumentString(`
+    mutation Register($data: RegisterInput!) {
+  register(data: $data) {
+    token
+    refreshToken
+    user {
+      id
+      name
+      email
+      createdAt
+      updatedAt
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<RegisterMutation, RegisterMutationVariables>;
